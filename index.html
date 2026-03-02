@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Inauguration | MRPL</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Mallanna&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #f2f6ff;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+
+.header {
+    width: 100%;
+    background: white;
+    padding: 10px 40px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    z-index: 3500;
+    border-bottom: 2px solid #000;
+    box-sizing: border-box;
+}
+
+.header-left, .header-right {
+    width: 160px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+.header-center {
+    flex: 1;
+    text-align: center;
+}
+
+.logo {
+    max-height: 130px;
+    width: auto;
+    opacity: 1;
+    filter: drop-shadow(0px 0px 6px rgba(0,0,0,0.4));
+}
+
+.header-title-big {
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a6e32;
+    margin: 0;
+    line-height: 1;
+    margin-top: 20px;   
+}
+
+.hero-highlight {
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 20px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #205a94;
+    padding: 12px 40px;
+    background-color: #f8fff9;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#curtain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3000;
+    display: none;
+    pointer-events: none;
+}
+
+#curtain-left, #curtain-right {
+    position: absolute;
+    top: 0;
+    width: 50vw;
+    height: 100vh;
+    background-image: url('Red_Curtain.png');
+    background-size: cover;
+}
+#curtain-left { left: 0; }
+#curtain-right { right: 0; }
+
+/* IMAGE WRAPPER */
+#imageWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    /* start behind the curtains while they open */
+    z-index: 2000;
+    background: black;
+    transition: opacity 0.3s;
+}
+
+#imageWrapper.visible {
+    display: block;
+    opacity: 1;
+}
+
+#revealImage {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    /* start blurred and faded; will be cleared once curtains have opened */
+    filter: blur(40px);
+    opacity: 0.3;
+    /* keep the blur until curtains finish, then clear quickly */
+    transition: filter 0.5s ease, opacity 0.5s ease;
+}
+
+#revealImage.clear {
+    filter: blur(0);
+    opacity: 1;
+}
+
+.popper {
+    position: absolute;
+    bottom: 10px;
+    width: 120px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 1.5s ease-out;
+    z-index: 6000;
+}
+.popper.show { opacity: 1; transform: scale(1); }
+#popper-left { left: 20px; }
+#popper-right { right: 20px; }
+
+.confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 10px;
+    border-radius: 2px;
+    z-index: 6001;
+}
+
+.launch-btn {
+    padding: 10px 30px;
+    background: #0a6e32;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 2px solid white;
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.launch-btn:hover { background: #28b561 ; }
+
+.cm-block { text-align: center; margin-top: 20px; }
+.name { font-size: 22px; font-weight: bold; color: #e53f0f; }
+.subtext { font-size: 16px; color: #000; }
+
+.details-block { text-align: center; margin-top: 15px; }
+.details-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #c22a00;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="clapAudio" loop>
+<source src="vvqne-applause-383901.mp3" type="audio/mp3">
+</audio>
+
+<div id="curtain-container">
+<div id="curtain-left"></div>
+<div id="curtain-right"></div>
+</div>
+
+<div id="mainContent">
+
+<div class="header">
+<div class="header-left">
+<img src="MRPL_official_Logo.png" class="logo">
+</div>
+
+<div class="header-center">
+<div class="header-title-big">
+MANGALORE REFINERY AND PETROCHEMICALS LIMITED
+</div>
+
+<div class="hero-highlight">
+SECURITY INFRASTRUCTURE <br> <span style="font-size: 15px;">INAUGURATION CEREMONY</span>
+</div>
+</div>
+
+<div class="header-right">
+<img src="MRPL_official_Logo.png" class="logo" alt="mrpl official logo">
+</div>
+</div>
+
+<div class="cm-block">
+<img src="Shri Mundkur Shyamprasad Kamath.png" height="200" alt="Dignitary Image">
+<div class="name">(Name of the Dignitary Inaugurating)</div>
+<div class="subtext">(Post of the Dignitary)</div>
+<a href="#" class="launch-btn" id="playVideo">LAUNCH</a>
+</div>
+
+<div class="cm-block">
+<div class="name">With Regards</div>
+<div class="name">(Name of the Head)<span style="font-size:15px;"></span></div>
+<div class="subtext">(MD, MRPL)</div>
+</div>
+
+<div class="details-block">
+<div class="details-text">Date : __ 2026</div>
+<div class="details-text">Time : __ AM</div>
+</div>
+
+</div>
+
+<div id="imageWrapper">
+<img id="revealImage" src="MRPL_Security_Infrastructure_Top_2560x1440.png" alt="security infrastructure image">
+<img id="popper-left" class="popper" src="party_popper_left.png">
+<img id="popper-right" class="popper" src="party_popper_right.png">
+</div>
+
+<script>
+
+function triggerConfettiOnly() {
+    const W = innerWidth;
+    const H = innerHeight;
+    const half = W / 2;
+    const popperY = H - 40;
+    const particles = [];
+
+    function makeConfetti(x, side) {
+        const el = document.createElement("div");
+        el.className = "confetti-piece";
+        el.style.background = `hsl(${Math.random()*360},80%,55%)`;
+        el.style.left = x + "px";
+        el.style.top = popperY + "px";
+        document.getElementById("imageWrapper").appendChild(el);
+
+        const vx = (side === "left" ? -1 : 1) * (100 + Math.random()*200);
+        const vy = -(700 + Math.random()*700);
+        const gravity = 650;
+        const life = 2.5 + Math.random()*1.5;
+
+        particles.push({ el, x, y: popperY, vx, vy, gravity, life, age: 0 });
+    }
+
+    for (let i = 0; i < 250; i++) {
+        makeConfetti(Math.random()*half, "left");
+        makeConfetti(half + Math.random()*half, "right");
+    }
+
+    let last = performance.now();
+    function step(now) {
+        const dt = (now-last)/1000;
+        last = now;
+
+        for (let i = particles.length-1; i>=0; i--) {
+            const p = particles[i];
+            p.vy += p.gravity*dt;
+            p.x += p.vx*dt;
+            p.y += p.vy*dt;
+            p.age += dt;
+
+            p.el.style.left = p.x+"px";
+            p.el.style.top = p.y+"px";
+
+            if (p.age > p.life) {
+                p.el.remove();
+                particles.splice(i, 1);
+            }
+        }
+
+        if (particles.length) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
+function activatePoppers() {
+    $("#popper-left").addClass("show");
+    $("#popper-right").addClass("show");
+    triggerConfettiOnly();
+
+    setTimeout(() => {
+        $("#popper-left, #popper-right").removeClass("show");
+    }, 2000);
+}
+
+$("#playVideo").click(function(e) {
+    e.preventDefault();
+
+    // immediately make the blurred image available behind everything
+    $("#imageWrapper").css({ display: 'block', 'z-index': '-1' });
+    $("#revealImage").removeClass('clear');
+
+    // hide the main content then start curtains animation
+    $("#mainContent").fadeOut(400, function() {
+        // bring image above the page but still below curtains
+        $("#imageWrapper").css('z-index', '2000');
+
+        $("#curtain-container").show();
+
+        // slide curtains aside over 3 seconds
+        $("#curtain-left").animate({ left: "-50vw" }, 3000);
+        $("#curtain-right").animate({ right: "-50vw" }, 3000, function(){
+            // curtains fully open now
+
+            // bring the image wrapper to front so confetti/poppers appear above everything
+            $("#imageWrapper").css('z-index', '5000');
+
+            // clear blur/fade on the image
+            $("#revealImage").addClass('clear');
+
+            // show poppers and confetti
+            activatePoppers();
+        });
+    });
+
+    // start applause audio immediately
+    const clap = document.getElementById("clapAudio");
+    clap.currentTime = 0;
+    clap.play().catch(()=>{});
+});
+
+</script>
+
+</body>
+</html>
